@@ -36,6 +36,15 @@ If everything worked... And you have run the command above, your demo is had by 
 $ cat ./README.md
 ```
 
+If you encounter the error x509: certificate signed by unknown authority and are unable to unseal HashiCorp Vault, the issue is typically related to Vault not trusting the TLS certificate authority (CA) used for its own certificate. This is common when using self-signed certificates or a private CA.
+
+To resolve this problem, run the following command:
+```sh
+docker exec -e VAULT_ADDR="https://localhost:9200" \
+  -e VAULT_CACERT="/home/vault/config/root.crt" \
+  -it docker-vault_server-1 vault operator unseal
+```
+
 If everything didn't work, tell me why.
 
 ## What is the API?
