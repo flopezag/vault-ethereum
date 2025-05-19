@@ -9,7 +9,8 @@ TLS_CERT="$CONFIG_DIR/vault.crt"
 OPENSSL_CONFIG="$CONFIG_DIR/vault.cnf"
 CSR="$CONFIG_DIR/vault.csr"
 
-export VAULT_ADDR="https://127.0.0.1:9200"
+#export VAULT_ADDR="https://127.0.0.1:9200"
+export VAULT_ADDR='https://localhost:9200'
 export VAULT_CACERT="$CA_CERT"
 
 function create_config {

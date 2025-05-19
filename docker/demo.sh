@@ -14,6 +14,8 @@ CONTRACT_FIXED_SUPPLY_TOKEN="FixedSupplyToken"
 BIN_FILE=".bin"
 ABI_FILE=".abi"
 
+export VAULT_ADDR='https://localhost:9200'
+
 function header() {
   printf "## %s\n\n" "$@"
   echo ""

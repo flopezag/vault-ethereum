@@ -2,6 +2,7 @@
 
 OPERATOR_JSON="/home/vault/config/operator.json"
 OPERATOR_SECRETS=$(cat $OPERATOR_JSON)
+export VAULT_ADDR='https://localhost:9200'
 
 
 function banner() {
@@ -25,8 +26,27 @@ function unauthenticate() {
 
 function unseal() {
     banner "Unsealing $VAULT_ADDR..."
-    UNSEAL=$(echo $OPERATOR_SECRETS | jq -r '.unseal_keys_hex[0]')
-    vault operator unseal $UNSEAL
+
+    # Wait for vault to become responsive
+    while ! vault status > >/dev/null 2>&1; do
+        echo "Waiting for vault to start..."
+        sleep 5
+    done
+
+    # Check if already unsealed
+    if vault status | grep q 'Sealed.*false'; then
+        echo "Vault slready unsealed"
+        return
+    fi
+    
+    # Apply all unseal keys until treshold met
+    KEYS=($(echo $OPERATOR_SECRETS | jq -r '.unseal_keys_hex[]'))
+    THRESHOLD=$(echo $OPERATOR_SECRETS | jq -r '.secret_threshold')
+
+    for ((i=0; i<$THRESHOLD; i++)); do
+        echo "Applying key $(($i+1))/$THRESHOLD"
+        vault operator unseal "${KEYS[$i]}" >/dev/null
+    done
 }
 
 function configure() {
@@ -54,8 +74,13 @@ function status() {
 }
 
 function init() {
-    OPERATOR_SECRETS=$(vault operator init -key-shares=1 -key-threshold=1 -format=json | jq .)
-    echo $OPERATOR_SECRETS > $OPERATOR_JSON
+    if [ ! -f "$OPERATOR_JSON" ]; then
+        banner "Initializing Vault..."
+        OPERATOR_SECRETS=$(vault operator init -key-shares=1 -key-threshold=1 -format=json | jq .)
+        echo "$OPERATOR_SECRETS" > $OPERATOR_JSON
+    else
+        OPERATOR_SECRETS=$(cat $OPERATOR_JSON)
+    fi
 }
 sleep 20
 if [ -f "$OPERATOR_JSON" ]; then
