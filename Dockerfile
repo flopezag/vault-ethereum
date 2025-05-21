@@ -23,7 +23,7 @@ USER vault
 WORKDIR /app
 RUN mkdir -p /home/vault/plugins
 
-COPY --from=builder /build/bin/vault-ethereum /home/vault/plugins/vault-ethereum
+COPY --from=builder /build/bin/vault-ethereum /home/vault/plugins/vault-eth2
 COPY --from=builder /build/bin/SHA256SUMS /home/vault/plugins/SHA256SUMS
 RUN ls -la /home/vault/plugins
 HEALTHCHECK CMD nc -zv 127.0.0.1 9200 || exit 1

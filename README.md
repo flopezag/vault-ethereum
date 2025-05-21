@@ -27,7 +27,8 @@ $ source ./local-test.sh auth
 $ ./demo.sh > README.md
 
 ```
-
+> [!NOTE]
+>  Authentication is required. If you are not identified as root (or an authorized user), you will receive a "403 permission denied" error.
 ## View the demo
 
 If everything worked... And you have run the command above, your demo is had by viewing the results: 
@@ -39,13 +40,17 @@ $ cat ./README.md
 If you encounter the error x509: certificate signed by unknown authority and are unable to unseal HashiCorp Vault, the issue is typically related to Vault not trusting the TLS certificate authority (CA) used for its own certificate. This is common when using self-signed certificates or a private CA.
 
 To resolve this problem, run the following command:
+
 ```sh
 docker exec -e VAULT_ADDR="https://localhost:9200" \
   -e VAULT_CACERT="/home/vault/config/root.crt" \
   -it docker-vault_server-1 vault operator unseal
 ```
 
-If everything didn't work, tell me why.
+> [!NOTE]
+> You can find the unseal key in at /docker/config.operator.json
+
+If everything didn't work, [tell me why](mailto:asma.taamallah@fiware.org).
 
 ## What is the API?
 
@@ -88,16 +93,24 @@ Deploy a smart contract from an account.
 
 Deploy a smart contract to the network.
 ```
+If you like to check the balance on Bob's account use the following command:
 
-## I still need help
+```sh
+    vault read vault-eth2/accounts/bob/balance
+```
 
-[Please reach out to me](mailto:jeff@immutability.io). 
+Running this command we expect an output that provides the account address for Bob as well as its balance:
 
-## Tip
+```sh
+    Key        Value
+    ---        -----
+    address    0x90259301a101A380F7138B50b6828cfFfd4Cbf60
+    balance    999496453868000000000
+```
 
-Supporting OSS is very hard. 
+## If you still need help or have a question about how things work
 
-This is my ETH address. The private keys are managed by this plugin: 
+[Please reach out to me](mailto:asma.taamallah@fiware.org). 
 
-`0x68350c4c58eE921B30A4B1230BF6B14441B46981`
+
 
