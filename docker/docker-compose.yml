@@ -21,12 +21,15 @@ services:
     volumes:
       - ./ganache_data:/ganache_data
     command:
-      - --deterministic
-      - --db=/ganache_data
-      - --networkId
-      - "8545"
-      - --host
-      - "0.0.0.0"
+    - --mnemonic
+    - "volcano story trust file before member board recycle always draw fiction when"
+    - --chain.chainId=1337
+    - --host
+    - "0.0.0.0"
+    - --accounts
+    - "10"
+    - --defaultBalanceEther
+    - "1000"
 networks:
   develop:
     name: vault-ethereum-net
