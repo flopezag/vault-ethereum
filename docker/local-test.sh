@@ -7,7 +7,7 @@ OPERATOR_JSON="$PWD/config/operator.json"
 OPERATOR_DATA="$PWD/config/data"
 OPERATOR_SECRETS=$(cat $OPERATOR_JSON)
 export VAULT_CACERT="$PWD/config/root.crt"
-export VAULT_ADDR=https://localhost:9200
+export VAULT_ADDR='https://localhost:9200'
 
 
 function clear() {
@@ -61,4 +61,3 @@ elif [ $COMMAND = "unseal" ]; then
 elif [ $COMMAND = "clear" ]; then
     clear
 fi
-
