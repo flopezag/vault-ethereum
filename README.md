@@ -110,7 +110,7 @@ Running this command we expect an output that provides the account address for B
 
 ## If you still need help or have a question about how things work
 > [!NOTE]
-> This repository was updated by Asma Taamallah, a student at Passau University, Germany, and a working student at FIWARE Foundation.
+> This repository was updated by Asma Taamallah, working student at the FIWARE Foundation and student at the University of Passau, Germany.
 > If you still need help or have a question about how things work, [Please reach out to me](mailto:asma.taamallah@fiware.org). 
 
 
