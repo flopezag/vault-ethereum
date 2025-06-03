@@ -50,7 +50,7 @@ docker exec -e VAULT_ADDR="https://localhost:9200" \
 > [!NOTE]
 > You can find the unseal key in at /docker/config.operator.json
 
-If everything didn't work, [tell me why](mailto:asma.taamallah@fiware.org).
+If everything didn't work, please create an issue in GitHub explaining the problem.
 
 ## What is the API?
 
@@ -109,8 +109,6 @@ Running this command we expect an output that provides the account address for B
 ```
 
 ## If you still need help or have a question about how things work
-> [!NOTE]
-> This repository was updated by Asma Taamallah, working student at the FIWARE Foundation and student at the University of Passau, Germany.
-> If you still need help or have a question about how things work, [Please fell free to reach out](mailto:asma.taamallah@fiware.org). 
+[Please reach out to me](mailto:jeff@immutability.io). 
 
 
