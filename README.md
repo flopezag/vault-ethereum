@@ -6,6 +6,10 @@ Having had several occasions to take this PoC to production with companies in th
 
 Excepting the `convert` API, which I keep for entertainment value.
 
+## Prerequisites
+
+Please ensure jq is installed on your system before running the demo.
+
 ## Testing - in one terminal...
 
 ```sh
@@ -107,6 +111,17 @@ Running this command we expect an output that provides the account address for B
     address    0x90259301a101A380F7138B50b6828cfFfd4Cbf60
     balance    999496453868000000000
 ```
+
+## About the Demo Mnemonic
+
+The demo uses a 12-word BIP-39 mnemonic phrase:
+```text
+  volcano story trust file before member board recycle always draw fiction when
+```
+This mnemonic is used to deterministically generate the "bob" Ethereum account in the demo script. Using a fixed mnemonic ensures that the same account credentials are produced every time, making tests and demonstrations repeatable and predictable.
+
+> [!Note]
+> This mnemonic is for demonstration purposes only and should never be used to secure real assets, as it is publicly visible in the repository
 
 ## If you still need help or have a question about how things work
 [Please reach out to me](mailto:jeff@immutability.io). 
