@@ -39,7 +39,7 @@ function unseal() {
         return
     fi
     
-    # Apply all unseal keys until treshold met
+    # Apply all unseal keys until threshold met
     KEYS=($(echo $OPERATOR_SECRETS | jq -r '.unseal_keys_hex[]'))
     THRESHOLD=$(echo $OPERATOR_SECRETS | jq -r '.secret_threshold')
 
