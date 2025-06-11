@@ -4,6 +4,24 @@ OPERATOR_JSON="/home/vault/config/operator.json"
 OPERATOR_SECRETS=$(cat $OPERATOR_JSON)
 export VAULT_ADDR='https://localhost:9200'
 
+# Check if jq is installed
+if ! command -v jq &> /dev/null; then
+    echo "jq is not installed. Installing..."
+    
+    # Install jq based on the package manager
+    if [ -x "$(command -v apt)" ]; then
+        sudo apt update && sudo apt install -y jq
+    elif [ -x "$(command -v yum)" ]; then
+        sudo yum install -y jq
+    elif [ -x "$(command -v brew)" ]; then
+        brew install jq
+    else
+        echo "Package manager not found. Please install jq manually."
+        exit 1
+    fi
+else
+    echo "jq is already installed."
+fi
 
 function banner() {
   echo "+----------------------------------------------------------------------------------+"
