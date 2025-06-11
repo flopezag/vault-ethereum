@@ -53,7 +53,7 @@ function unseal() {
 
     # Check if already unsealed
     if vault status | grep q 'Sealed.*false'; then
-        echo "Vault slready unsealed"
+        echo "Vault already unsealed"
         return
     fi
     
