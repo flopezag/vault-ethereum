@@ -114,16 +114,28 @@ Running this command we expect an output that provides the account address for B
 
 ## About the Demo Mnemonic
 
-The demo uses a 12-word BIP-39 mnemonic phrase:
+The demo uses a 12-word [BIP-39 mnemonic](https://iancoleman.io/bip39/) phrase:
 ```text
   volcano story trust file before member board recycle always draw fiction when
 ```
-This mnemonic is used to deterministically generate the "bob" Ethereum account in the demo script. Using a fixed mnemonic ensures that the same account credentials are produced every time, making tests and demonstrations repeatable and predictable.
+This mnemonic is a randomly generated sequence from the official BIP39 word list (2048 words), used to derive the private key for a cryptocurrency wallet. It is included for testing and demonstration, allowing quick setup of a wallet for development and experimentation.
+
+In this repository, the mnemonic deterministically generates the "bob" Ethereum account in the demo script. Using a fixed mnemonic ensures repeatable and predictable account credentials for consistent tests and demonstrations.
 
 > [!Note]
 > This mnemonic is for demonstration purposes only and should never be used to secure real assets, as it is publicly visible in the repository
 
-## If you still need help or have a question about how things work
-[Please reach out to me](mailto:jeff@immutability.io). 
+## I still need help
+[Please reach out to the original developer](mailto:jeff@immutability.io). 
+[Please reach out to me](mailto:asma.taamallah@fiware.org). 
+
+## Tip
+
+Supporting OSS is very hard. 
+
+This is ETH address of the original developer. The private keys are managed by this plugin:
+
+`0x68350c4c58eE921B30A4B1230BF6B14441B46981`
+
 
 
