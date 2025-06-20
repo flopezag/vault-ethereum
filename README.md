@@ -127,6 +127,7 @@ In this repository, the mnemonic deterministically generates the "bob" Ethereum 
 
 ## I still need help
 [Please reach out to the original developer](mailto:jeff@immutability.io). 
+
 [Please reach out to me](mailto:asma.taamallah@fiware.org). 
 
 ## Tip
