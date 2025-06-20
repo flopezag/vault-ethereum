@@ -4,33 +4,35 @@ services:
   vault_server:
     networks:
       - develop
-    links:
-      - "ganache"
     image: "cypherhat/vault-ethereum:latest"
     ports:
       - "9200:9200"
     volumes:
-      - "./config:/home/vault/config:rw"
+      - "./config:/home/vault/config:rw" #inside the container the root.crt file is available at /home/vault/config/root.crt
     entrypoint: /home/vault/config/entrypoint.sh
   ganache:
     networks:
       - develop
-    image: trufflesuite/ganache-cli:latest
+    image: trufflesuite/ganache:latest
+    # If you are running on a different architecture (e.g., x86_64/amd64), you may remove or change this line to match your host platform.
+    platform: linux/arm64 # Explicitly use ARM64 for M3 compatibility
+
     ports:
       - "8545:8545"
     volumes:
       - ./ganache_data:/ganache_data
-    entrypoint:
-      - node
-      - /app/ganache-core.docker.cli.js
-      - --deterministic
-      - --db=/ganache_data
-      - --mnemonic
-      - "volcano story trust file before member board recycle always draw fiction when"
-      - --networkId
-      - "8545"
-      - --hostname
-      - "0.0.0.0"
+    command:
+    - --mnemonic
+    # Refer to the README about the value of MNEMONIC
+    - "volcano story trust file before member board recycle always draw fiction when"
+    - --chain.chainId=1337
+    - --host
+    - "0.0.0.0"
+    - --accounts
+    - "10"
+    - --defaultBalanceEther
+    - "1000"
 networks:
   develop:
+    name: vault-ethereum-net
     driver: bridge

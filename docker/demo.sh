@@ -1,10 +1,11 @@
 #!/bin/bash
 
+# Refer to the README about the value of MNEMONIC
 MNEMONIC="volcano story trust file before member board recycle always draw fiction when"
-CHAIN_ID=5777
+CHAIN_ID=1337
 PORT=8545
 RPC_URL="http://ganache:$PORT"
-PLUGIN="vault-ethereum"
+PLUGIN="vault-eth2"
 RAW_TX="f86d8202b28477359400825208944592d8f8d7b001e72cb26a73e4fa1806a51ac79d880de0b6b3a7640000802ca05924bde7ef10aa88db9c66dd4f5fb16b46dff2319b9968be983118b57bb50562a001b24b31010004f13d9a26b320845257a6cfc2bf819a3d55e3fc86263c5f0772"
 MESSAGE="HOLA VAULT"
 ERC20_CONTRACTS_PATH="$(pwd)/erc20/build/"
@@ -13,6 +14,10 @@ CONTRACT_OWNED="Owned"
 CONTRACT_FIXED_SUPPLY_TOKEN="FixedSupplyToken"
 BIN_FILE=".bin"
 ABI_FILE=".abi"
+
+export VAULT_CACERT="$(pwd)/config/root.crt"
+export VAULT_ADDR="https://localhost:9200"
+
 
 function header() {
   printf "## %s\n\n" "$@"
@@ -98,9 +103,9 @@ log_curl_command $(vault write -output-curl-string $PLUGIN/accounts/bob mnemonic
 log_json
 
 step "1: GET BOB'S ADDRESS"
-log_vault_command "vault read -field=address vault-ethereum/accounts/bob"
-log_curl_command $(vault read -output-curl-string -field=address vault-ethereum/accounts/bob)
-BOB_ADDRESS=$(vault read -field=address vault-ethereum/accounts/bob)
+log_vault_command "vault read -field=address vault-eth2/accounts/bob"
+log_curl_command $(vault read -output-curl-string -field=address vault-eth2/accounts/bob)
+BOB_ADDRESS=$(vault read -field=address vault-eth2/accounts/bob)
 log_value $BOB_ADDRESS
 
 header "HOW TO CREATE AN ACCOUNT NAMED ALICE WITH NO MNEMONIC"
@@ -110,18 +115,18 @@ log_json
 
 header "HOW TO TRANSFER 0.5 ETH FROM BOB TO ALICE"
 step "1: CONVERT 0.5 ETH TO WEI"
-log_vault_command "vault write -field=amount_to vault-ethereum/convert unit_from='ETH' unit_to='WEI' amount=0.5"
-log_curl_command $(vault write -output-curl-string vault-ethereum/convert unit_from="ETH" unit_to="WEI" amount=0.5)
-AMOUNT_TO=$(vault write -field=amount_to vault-ethereum/convert unit_from='ETH' unit_to='WEI' amount=0.5)
+log_vault_command "vault write -field=amount_to vault-eth2/convert unit_from='ETH' unit_to='WEI' amount=0.5" 
+log_curl_command $(vault write -output-curl-string vault-eth2/convert unit_from="ETH" unit_to="WEI" amount=0.5)
+AMOUNT_TO=$(vault write -field=amount_to vault-eth2/convert unit_from='ETH' unit_to='WEI' amount=0.5)
 log_value $AMOUNT_TO
 step "2: GET ALICE'S ADDRESS"
-log_vault_command "vault read -field=address vault-ethereum/accounts/alice"
-log_curl_command $(vault read -output-curl-string -field=address vault-ethereum/accounts/alice)
-ALICE_ADDRESS=$(vault read -field=address vault-ethereum/accounts/alice)
+log_vault_command "vault read -field=address vault-eth2/accounts/alice"
+log_curl_command $(vault read -output-curl-string -field=address vault-eth2/accounts/alice)
+ALICE_ADDRESS=$(vault read -field=address vault-eth2/accounts/alice)
 log_value $ALICE_ADDRESS
 step "3: SEND BOB'S ETH TO ALICE"
-vault_command_json "vault write -format=json vault-ethereum/accounts/bob/transfer to='$ALICE_ADDRESS' amount='$AMOUNT_TO'"
-log_curl_command $(vault write -output-curl-string vault-ethereum/accounts/bob/transfer to="$ALICE_ADDRESS" amount="$AMOUNT_TO")
+vault_command_json "vault write -format=json vault-eth2/accounts/bob/transfer to='$ALICE_ADDRESS' amount='$AMOUNT_TO'"
+log_curl_command $(vault write -output-curl-string vault-eth2/accounts/bob/transfer to="$ALICE_ADDRESS" amount="$AMOUNT_TO")
 log_json
 
 header "HOW TO CHECK BALANCE OF THE ACCOUNT NAMED BOB"

@@ -6,7 +6,7 @@ backend "file" {
 path = "/home/vault/config/data"
 }
 
-api_addr = "https://localhost:9200"
+api_addr = "https://localhost:9200" # Binds Vault to all network interfaces on port 9200
 ui = "false"
 
 plugin_directory = "/home/vault/plugins"
