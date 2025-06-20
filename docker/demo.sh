@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Refer to the README about the value of MNEMONIC
 MNEMONIC="volcano story trust file before member board recycle always draw fiction when"
 CHAIN_ID=1337
 PORT=8545
