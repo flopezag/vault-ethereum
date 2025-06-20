@@ -23,6 +23,7 @@ services:
       - ./ganache_data:/ganache_data
     command:
     - --mnemonic
+    # Refer to the README about the value of MNEMONIC
     - "volcano story trust file before member board recycle always draw fiction when"
     - --chain.chainId=1337
     - --host
